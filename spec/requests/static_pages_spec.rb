@@ -17,7 +17,7 @@ describe "Static page" do
 		it "should have 'About' in title" do 
 			visit '/static_pages/about'
 			page.should have_selector('title',
-						:text => "| About Us")
+						text: "| About Us")
 		end
 	end
 
