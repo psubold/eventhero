@@ -10,6 +10,7 @@ class UsersController < ApplicationController
   def create
   	@user = User.new(params[:user])
   	if @user.save
+      sign_in @user
       UserMailer.registration_confirmation(@user).deliver
   		flash[:success] = "Welcome to EventHero!"
   		redirect_to @user 

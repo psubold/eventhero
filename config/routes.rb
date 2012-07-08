@@ -1,9 +1,13 @@
 Eventhero::Application.routes.draw do
   resources :users
+  resources :sessions, only: [:new, :create, :destroy]
 
   root to: 'static_pages#home'
 
   match '/signup',      to: 'users#new'
+
+  match '/signin',      to: 'sessions#new'
+  match '/signout',     to: 'sessions#destroy'
 
   match '/contact',     to: 'static_pages#contact'
   match '/howitworks',  to: 'static_pages#howitworks'
