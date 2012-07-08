@@ -1,5 +1,5 @@
 Eventhero::Application.routes.draw do
-  get "users/new"
+  resources :users
 
   root to: 'static_pages#home'
 
@@ -8,6 +8,7 @@ Eventhero::Application.routes.draw do
   match '/contact',     to: 'static_pages#contact'
   match '/howitworks',  to: 'static_pages#howitworks'
   match '/about',       to: 'static_pages#about'
+  match '/comingsoon',  to: 'static_pages#comingsoon'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
