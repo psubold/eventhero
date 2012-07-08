@@ -5,7 +5,7 @@ describe "Static page" do
 	describe "Home page" do 
 
 		it "should have 'Home' in title" do 
-			visit '/static_pages/home'
+			visit root_path
 			page.should have_selector('title',
 						:text => "| Home")
 		end
@@ -15,7 +15,7 @@ describe "Static page" do
 	describe "About page" do 
 
 		it "should have 'About' in title" do 
-			visit '/static_pages/about'
+			visit about_path
 			page.should have_selector('title',
 						text: "| About Us")
 		end
@@ -25,7 +25,7 @@ describe "Static page" do
 	describe "contact page" do 
 
 		it "should have 'contact us' in title" do 
-			visit '/static_pages/contact'
+			visit contact_path
 			page.should have_selector('title',
 						:text => "| Contact Us")
 		end
@@ -35,7 +35,7 @@ describe "Static page" do
 	describe "how it works page" do 
 
 		it "shoudl have 'how it works' in title" do 
-			visit '/static_pages/howitworks'
+			visit howitworks_path
 			page.should have_selector('title',
 						:text => "| How It Works")
 		end
