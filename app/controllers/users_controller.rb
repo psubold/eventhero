@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_filter :signed_in_user, only: [:edit, :update, :index]
   before_filter :correct_user,   only: [:edit, :update]
+  before_filter :not_signed_in,  only: :new
 
   def index
   end
@@ -14,15 +15,19 @@ class UsersController < ApplicationController
   end
 
   def create
-  	@user = User.new(params[:user])
-  	if @user.save
-      sign_in @user
-      UserMailer.registration_confirmation(@user).deliver
-  		flash[:success] = "Welcome to EventHero!"
-  		redirect_to @user 
-  	else
-  		render 'new'
-  	end
+    if signed_in?
+      redirect_to(root_path)
+    else
+    	@user = User.new(params[:user])
+    	if @user.save
+        sign_in @user
+        UserMailer.registration_confirmation(@user).deliver
+    		flash[:success] = "Welcome to EventHero!"
+    		redirect_to @user 
+    	else
+    		render 'new'
+    	end
+    end
   end
 
   def edit
@@ -38,6 +43,13 @@ class UsersController < ApplicationController
     end
   end
 
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy
+    flash[:success] = "User destroyed"
+    redirect_to users_path
+  end
+
 
   private
 
@@ -51,5 +63,11 @@ class UsersController < ApplicationController
         def correct_user
           @user = User.find(params[:id])
           redirect_to(root_path) unless current_user?(@user)
+        end
+
+        def not_signed_in
+          if signed_in?
+            redirect_to(root_path)
+          end
         end
 end

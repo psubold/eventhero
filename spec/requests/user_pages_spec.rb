@@ -34,6 +34,28 @@ describe "User Pages" do
 				expect { click_button submit }.to change(User, :count).by(1)
 			end
 		end
+
+	end
+
+	describe "visiting signup page when signed in" do 
+		let(:user) {FactoryGirl.create(:user) }
+		before do 
+			sign_in user 
+			visit signup_path
+		end
+
+		it { should have_selector('title', text: "Home") }
+
+	end
+
+	describe "attempting to create user when signed in" do 
+		let(:user) {FactoryGirl.create(:user) }
+		before do 
+			sign_in user
+			post users_path
+		end
+
+		specify { response.should redirect_to(root_path) }
 	end
 
 	describe "Edit" do 
@@ -53,6 +75,19 @@ describe "User Pages" do
 			it { should have_content('error') }
 		end
 	end
+
+
+	##describe "admins destroying themselves" do 
+	##	let(:user) {FactoryGirl.create(:user) }
+	##	before do 
+	##		user.toggle!(:admin)
+	##		sign_in user 
+	##	end
+##
+#		describe "should not be allowed" do 
+#			before { delete user_path(user) }
+#			specify { response.should }
+
 
 
 end
